@@ -9,7 +9,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - microservices-net
     restart: unless-stopped
@@ -21,27 +21,16 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=deep
       - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongo:/data
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo_express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=deep
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-      - ME_CONFIG_MONGODB_SERVER=mongodb
 
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1025:1025
+      - "1080:1080"
+      - "1025:1025"
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -51,7 +40,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 22181:2181
+      - "22181:2181"
     networks:
       - microservices-net
 
@@ -66,7 +55,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
     ports:
-      - 9092:9092
+      - "9092:9092"
     depends_on:
       - zookeeper
     networks:
@@ -76,7 +65,7 @@ services:
     container_name: zipkin
     image: openzipkin/zipkin
     ports:
-      - 9411:9411
+      - "9411:9411"
     networks:
       - microservices-net
 
